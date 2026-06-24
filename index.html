@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пансионат «Наш Дом» | Забота и уют для ваших близких</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
+        
+        :root {
+            --bg-main: #F8FAFC;
+            --bg-sec: #EEF6FA;
+            --text-headers: #35586D;
+            --text-body: #4F5B66;
+            --primary-blue: #6E91A8;
+            --dark-blue: #557A92;
+            --light-blue: #BFD9E6;
+            --accent-blue: #9CC8D8;
+            --accent-green: #AEB8A0;
+            --border-color: #DCE7EE;
+        }
+
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--bg-main); color: var(--text-body); }
+        h1, h2, h3, h4 { color: var(--text-headers); }
+        .bg-sec { background-color: var(--bg-sec); }
+        .btn-primary { background-color: var(--dark-blue); color: white; transition: all 0.3s ease; }
+        .btn-primary:hover { background-color: var(--primary-blue); transform: translateY(-2px); }
+        
+        /* Анимации */
+        .fade-in { animation: fadeIn 0.8s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .hover-card { transition: all 0.3s ease; }
+        .hover-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); }
+        /* Это заставляет браузер отступать от верха при прыжке к якорю */
+    html {
+        scroll-behavior: smooth; /* Плавная прокрутка */
+    }
+    
+    section {
+        scroll-margin-top: 100px; /* Отступ от липкой шапки (подберите под высоту вашего хедера) */
+    }
+    .fade-in-up {
+        animation: fadeInUp 1.2s ease-out forwards;
+    }
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Анимация плавного приближения фона */
+@keyframes kenburns {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1); }
+}
+
+.animate-kenburns {
+    animation: kenburns 15s ease-out infinite alternate;
+}
+    
+/* Эффект плавного появления по очереди */
+.stagger-item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease-out;
+}
+.stagger-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Эффект парения при наведении */
+.hover-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hover-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+
+
+  
+
+  .feat-card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      transform 0.3s cubic-bezier(.34,1.56,.64,1),
+      box-shadow 0.3s ease,
+      border-color 0.3s ease,
+      opacity 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+  }
+
+  .feat-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(var(--primary-blue-rgb, 55,138,221), 0.06) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+
+  .feat-card:hover {
+    transform: translateY(-6px) scale(1.03);
+    border-color: var(--primary-blue) !important;
+    box-shadow: 0 10px 28px rgba(var(--primary-blue-rgb, 55,138,221), 0.15);
+  }
+
+  .feat-card:hover::before {
+    opacity: 1;
+  }
+
+  .feat-card:hover i {
+    transform: scale(1.2) rotate(-8deg);
+  }
+
+  .feat-card i {
+    display: block;
+    transition: transform 0.3s cubic-bezier(.34,1.56,.64,1);
+  }
+
+  .feat-card.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+
+  /* слайдер */
+
+    .slider-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  width: 90%;
+  max-width: 900px;
+  margin: 0 auto;
+  }
+
+  .slider-track {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(.4,0,.2,1);
+  }
+
+  .slide {
+    min-width: 100%;
+    height: 65vh;
+  }
+
+  .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.85);
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, transform 0.2s;
+    z-index: 10;
+  }
+
+  .slider-btn:hover {
+    background: #fff;
+    transform: translateY(-50%) scale(1.1);
+  }
+
+  .slider-btn.prev { left: 16px; }
+  .slider-btn.next { right: 16px; }
+
+  .slider-dots {
+    position: absolute;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+  }
+
+  .dot.active {
+    background: #fff;
+    transform: scale(1.3);
+  }
+
+
+
+    .care-card {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.5s ease,
+      transform 0.5s cubic-bezier(.34,1.2,.64,1),
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  .care-card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    transform: translateY(-4px) !important;
+  }
+
+  .care-card.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+    </style>
+</head>
+<body class="pb-20 md:pb-0">
+
+    <!-- 1. Header -->
+
+<header class="bg-white py-4 shadow-sm sticky top-0 z-50 border-b border-[var(--border-color)]">
+    <div class="container mx-auto px-6 flex justify-between items-center">
+        <a href="#" class="block">
+            <img src="img/logo.webp" alt="Наш Дом" class="h-20 w-auto object-contain">
+        </a>
+        
+        <nav class="hidden lg:flex space-x-6 text-sm font-semibold uppercase text-[var(--text-headers)]">
+            <a href="#about" class="hover:text-[var(--primary-blue)] transition">О пансионате</a>
+            <a href="#features" class="hover:text-[var(--primary-blue)] transition">Преимущества</a>
+            <a href="#care" class="hover:text-[var(--primary-blue)] transition">Уход</a>
+            <a href="#gallery" class="hover:text-[var(--primary-blue)] transition">Галерея</a>
+            <a href="#contacts" class="hover:text-[var(--primary-blue)] transition">Контакты</a>
+        </nav>
+        
+        <a href="tel:+77073838723" class="hidden md:block btn-primary px-6 py-2 rounded-full font-bold">Позвонить</a>
+        
+        <button id="menu-toggle" class="lg:hidden p-2 text-2xl">
+            <i class="ph ph-list"></i>
+        </button>
+    </div>
+
+    <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-[var(--border-color)] p-6 space-y-4 text-center">
+        <a href="#about" class="mobile-link block py-2">О пансионате</a>
+        <a href="#features" class="mobile-link block py-2">Преимущества</a>
+        <a href="#care" class="mobile-link block py-2">Уход</a>
+        <a href="#gallery" class="mobile-link block py-2">Галерея</a>
+        <a href="#contacts" class="mobile-link block py-2">Контакты</a>
+    </div>
+</header>
+
+
+
+<!-- 2. Hero (Обновленный) -->
+<section class="relative py-40 md:py-64 flex items-center justify-start overflow-hidden">
+    <div class="absolute inset-0 z-0">
+        <img src="img/back.webp" 
+             class="w-full h-full object-cover animate-kenburns" alt="Пансионат">
+        
+        <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
+    </div>
+
+    <div class="container mx-auto px-6 relative z-10 text-white fade-in-up max-w-7xl">
+        <div class="max-w-2xl">
+            <h1 class="text-4xl md:text-7xl font-bold mb-8 tracking-tight leading-tight [text-shadow:_0_4px_12px_rgb(0_0_0_/_50%)]">
+                 <span class="text-[#BFD9E6]">«Наш Дом» — пансионат для пожилых людей в Алматы</span>
+            </h1>
+            
+            <p class="text-xl md:text-2xl font-light mb-10 opacity-95 leading-relaxed [text-shadow:_0_2px_4px_rgb(0_0_0_/_40%)]">
+                Забота, внимание и домашняя атмосфера в экологически чистом районе предгорья.
+            </p>
+            
+            <div class="flex justify-start">
+                <a href="tel:+77073838723" 
+                   class="bg-[#6E91A8] hover:bg-[#557A92] text-white px-12 py-5 rounded-full font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-2xl border border-white/10">
+                    Позвонить сейчас
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- 3. Блок преимуществ (цифры) -->
+<section class="py-20 bg-[#F7F3ED]">
+    <div class="container mx-auto px-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+        
+        <!-- Используем класс stagger-item для анимации -->
+        <div class="p-8 bg-white border border-gray-100 rounded-3xl text-center hover-card shadow-sm stagger-item">
+            <i class="ph ph-users text-4xl text-[#6E91A8] mb-4"></i>
+            <p class="text-sm font-bold uppercase text-gray-700">До 35 постояльцев</p>
+        </div>
+        
+        <div class="p-8 bg-white border border-gray-100 rounded-3xl text-center hover-card shadow-sm stagger-item">
+            <i class="ph ph-clock text-4xl text-[#6E91A8] mb-4"></i>
+            <p class="text-sm font-bold uppercase text-gray-700">20 лет опыта</p>
+        </div>
+        
+        <div class="p-8 bg-white border border-gray-100 rounded-3xl text-center hover-card shadow-sm stagger-item">
+            <i class="ph ph-heart text-4xl text-[#6E91A8] mb-4"></i>
+            <p class="text-sm font-bold uppercase text-gray-700">Круглосуточная забота</p>
+        </div>
+        
+        <div class="p-8 bg-white border border-gray-100 rounded-3xl text-center hover-card shadow-sm stagger-item">
+            <i class="ph ph-house text-4xl text-[#6E91A8] mb-4"></i>
+            <p class="text-sm font-bold uppercase text-gray-700">Домашняя атмосфера</p>
+        </div>
+        
+        <div class="p-8 bg-white border border-gray-100 rounded-3xl text-center hover-card shadow-sm stagger-item">
+            <i class="ph ph-tree text-4xl text-[#6E91A8] mb-4"></i>
+            <p class="text-sm font-bold uppercase text-gray-700">Экологичный район</p>
+        </div>
+        
+        <div class="p-8 bg-white border border-gray-100 rounded-3xl text-center hover-card shadow-sm stagger-item">
+            <i class="ph ph-users-three text-4xl text-[#6E91A8] mb-4"></i>
+            <p class="text-sm font-bold uppercase text-gray-700">Посещения родных</p>
+        </div>
+        
+    </div>
+</section>
+
+<!-- слайдер -->
+<section id="gallery" class="py-16">
+  <div class="container mx-auto px-6">
+    <h3 class="text-3xl font-bold text-center mb-12">Наш пансионат </h3>
+
+    <div class="slider-wrapper" id="slider">
+      <div class="slider-track" id="sliderTrack">
+        <div class="slide"><img src="img/rooms/1.webp" alt="Коттедж 1"></div>
+        <div class="slide"><img src="img/rooms/2.webp" alt="Коттедж 2"></div>
+        <div class="slide"><img src="img/rooms/3.webp" alt="Коттедж 3"></div>
+        <div class="slide"><img src="img/rooms/4.webp" alt="Коттедж 4"></div>
+        <div class="slide"><img src="img/rooms/5.webp" alt="Коттедж 5"></div>
+        <div class="slide"><img src="img/rooms/6.webp" alt="Коттедж 1"></div>
+
+        <div class="slide"><img src="img/rooms/8.webp" alt="Коттедж 3"></div>
+        <div class="slide"><img src="img/rooms/9.webp" alt="Коттедж 4"></div>
+        <div class="slide"><img src="img/rooms/10.webp" alt="Коттедж 5"></div>
+        <div class="slide"><img src="img/land/1.webp" alt="Коттедж 1"></div>
+        <div class="slide"><img src="img/land/2.webp" alt="Коттедж 2"></div>
+        <div class="slide"><img src="img/land/3.webp" alt="Коттедж 3"></div>
+        <div class="slide"><img src="img/land/4.webp" alt="Коттедж 4"></div>
+     
+      </div>
+
+      <button class="slider-btn prev" id="sliderPrev">
+        <i class="ph ph-caret-left"></i>
+      </button>
+      <button class="slider-btn next" id="sliderNext">
+        <i class="ph ph-caret-right"></i>
+      </button>
+
+      <div class="slider-dots" id="sliderDots"></div>
+    </div>
+  </div>
+</section>
+    <!-- 4. О пансионате -->
+<section id="about" class="py-16 bg-white">
+    <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+        <img src="img/4.png" class="rounded-3xl w-full h-80 md:h-96 object-cover shadow-lg" alt="Территория">
+        
+        <div>
+            <h3 class="text-3xl font-bold mb-6 text-[var(--text-headers)]">Забота, внимание и безопасность</h3>
+            <p class="mb-4 text-[var(--text-body)]">Пансионат «Наш Дом» расположен в экологически чистом районе Алматы — Нур Алатау. Мы создали место, где пожилые люди чувствуют себя спокойно, безопасно и окружены вниманием.</p>
+            <p class="text-[var(--text-body)]">Каждый постоялец получает индивидуальный уход, уважительное отношение и возможность общаться с близкими.</p>
+        </div>
+    </div>
+</section>
+
+    <!-- 5. Наши преимущества -->
+
+    <section id="features" class="py-16 bg-sec">
+  <div class="container mx-auto px-6">
+    <h3 class="text-3xl font-bold text-center mb-12">Наши преимущества</h3>
+    <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-6" id="features-grid">
+
+      <div class="feat-card bg-white p-6 rounded-xl border border-[var(--border-color)] flex flex-col items-center text-center">
+        <i class="ph ph-house-line text-2xl text-[var(--primary-blue)] mb-3"></i>
+        <p class="text-sm font-semibold">Уютный коттедж</p>
+      </div>
+      <div class="feat-card bg-white p-6 rounded-xl border border-[var(--border-color)] flex flex-col items-center text-center">
+        <i class="ph ph-users text-2xl text-[var(--primary-blue)] mb-3"></i>
+        <p class="text-sm font-semibold">До 35 постояльцев</p>
+      </div>
+      <div class="feat-card bg-white p-6 rounded-xl border border-[var(--border-color)] flex flex-col items-center text-center">
+        <i class="ph ph-bed text-2xl text-[var(--primary-blue)] mb-3"></i>
+        <p class="text-sm font-semibold">Просторные комнаты</p>
+      </div>
+      <div class="feat-card bg-white p-6 rounded-xl border border-[var(--border-color)] flex flex-col items-center text-center">
+        <i class="ph ph-wind text-2xl text-[var(--primary-blue)] mb-3"></i>
+        <p class="text-sm font-semibold">Чистый воздух</p>
+      </div>
+      <div class="feat-card bg-white p-6 rounded-xl border border-[var(--border-color)] flex flex-col items-center text-center">
+        <i class="ph ph-shield-check text-2xl text-[var(--primary-blue)] mb-3"></i>
+        <p class="text-sm font-semibold">Круглосуточное наблюдение</p>
+      </div>
+      <div class="feat-card bg-white p-6 rounded-xl border border-[var(--border-color)] flex flex-col items-center text-center">
+        <i class="ph ph-pill text-2xl text-[var(--primary-blue)] mb-3"></i>
+        <p class="text-sm font-semibold">Контроль лекарств</p>
+      </div>
+      <div class="feat-card bg-white p-6 rounded-xl border border-[var(--border-color)] flex flex-col items-center text-center">
+        <i class="ph ph-user-circle text-2xl text-[var(--primary-blue)] mb-3"></i>
+        <p class="text-sm font-semibold">Индивидуальный подход</p>
+      </div>
+      <div class="feat-card bg-white p-6 rounded-xl border border-[var(--border-color)] flex flex-col items-center text-center">
+        <i class="ph ph-medal text-2xl text-[var(--primary-blue)] mb-3"></i>
+        <p class="text-sm font-semibold">Опыт более 20 лет</p>
+      </div>
+      <div class="feat-card bg-white p-6 rounded-xl border border-[var(--border-color)] flex flex-col items-center text-center">
+        <i class="ph ph-calendar-check text-2xl text-[var(--primary-blue)] mb-3"></i>
+        <p class="text-sm font-semibold">Ежедневные посещения</p>
+      </div>
+      <div class="feat-card bg-white p-6 rounded-xl border border-[var(--border-color)] flex flex-col items-center text-center">
+        <i class="ph ph-camera text-2xl text-[var(--primary-blue)] mb-3"></i>
+        <p class="text-sm font-semibold">Фото/видео отчёты</p>
+      </div>
+      <div class="feat-card bg-white p-6 rounded-xl border border-[var(--border-color)] flex flex-col items-center text-center">
+        <i class="ph ph-video-camera text-2xl text-[var(--primary-blue)] mb-3"></i>
+        <p class="text-sm font-semibold">Видеосвязь</p>
+      </div>
+      <div class="feat-card bg-white p-6 rounded-xl border border-[var(--border-color)] flex flex-col items-center text-center">
+        <i class="ph ph-smiley text-2xl text-[var(--primary-blue)] mb-3"></i>
+        <p class="text-sm font-semibold">Домашняя атмосфера</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+    <!-- 6. Кого мы принимаем -->
+<section class="py-20 container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+    <!-- Добавили h-80 (или h-72) и object-cover для обрезки лишней высоты -->
+    <img src="img/walk.webp" class="rounded-3xl shadow-lg w-full h-80 md:h-96 object-cover" alt="Общение">
+    
+    <div>
+        <h3 class="text-3xl font-bold mb-6 text-[var(--text-headers)]">Кого мы принимаем</h3>
+        <ul class="space-y-4 mb-6">
+            <li class="flex items-center text-[var(--text-body)]"><i class="ph ph-check text-[var(--primary-blue)] mr-3 text-xl"></i>Забота и общение</li>
+            <li class="flex items-center text-[var(--text-body)]"><i class="ph ph-check text-[var(--primary-blue)] mr-3 text-xl"></i>Помощь в повседневной жизни</li>
+        </ul>
+        <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
+            <p class="text-[var(--text-body)]">Условия проживания обсуждаются индивидуально.</p>
+            <p class="text-[var(--text-body)] mt-2"><strong>Важно:</strong> Пансионат не предусматривает проживание лежачих пациентов.</p>
+        </div>
+    </div>
+</section>
+
+    <!-- 7-10, 12: Краткие секции для примера (дополните по необходимости) -->
+<section id="care" class="py-16 bg-white">
+  <div class="container mx-auto px-6">
+    <h3 class="text-3xl font-bold text-center mb-4">Забота о ваших близких</h3>
+    <p class="text-center text-gray-500 mb-12">Мы создаём атмосферу тепла, безопасности и домашнего уюта</p>
+
+    <!-- Карточки ухода -->
+    <div class="grid md:grid-cols-3 gap-6 mb-16">
+      <div class="care-card p-6 rounded-2xl border-2 border-blue-100 bg-blue-50 hover:border-blue-300 transition-all duration-300">
+        <div class="w-14 h-14 rounded-2xl bg-blue-100 flex items-center justify-center mb-4">
+          <i class="ph ph-eye text-2xl text-[var(--primary-blue)]"></i>
+        </div>
+        <h4 class="font-bold text-lg mb-2">Круглосуточное наблюдение</h4>
+        <p class="text-gray-500 text-sm">Наши сотрудники всегда рядом — днём и ночью</p>
+      </div>
+      <div class="care-card p-6 rounded-2xl border-2 border-purple-100 bg-purple-50 hover:border-purple-300 transition-all duration-300">
+        <div class="w-14 h-14 rounded-2xl bg-purple-100 flex items-center justify-center mb-4">
+          <i class="ph ph-pill text-2xl text-purple-500"></i>
+        </div>
+        <h4 class="font-bold text-lg mb-2">Контроль приёма лекарств</h4>
+        <p class="text-gray-500 text-sm">Своевременный приём всех назначенных препаратов</p>
+      </div>
+      <div class="care-card p-6 rounded-2xl border-2 border-teal-100 bg-teal-50 hover:border-teal-300 transition-all duration-300">
+        <div class="w-14 h-14 rounded-2xl bg-teal-100 flex items-center justify-center mb-4">
+          <i class="ph ph-bathtub text-2xl text-teal-500"></i>
+        </div>
+        <h4 class="font-bold text-lg mb-2">Гигиена и уход</h4>
+        <p class="text-gray-500 text-sm">Ежедневный уход с вниманием и уважением</p>
+      </div>
+    </div>
+
+    <!-- Посещение и стоимость -->
+    <div class="grid md:grid-cols-2 gap-8">
+
+      <!-- Посещение родственниками -->
+      <div class="care-card relative p-8 rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-blue-100 rounded-full -translate-y-1/2 translate-x-1/2 opacity-40"></div>
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center">
+            <i class="ph ph-hand-heart text-2xl text-[var(--primary-blue)]"></i>
+          </div>
+          <h4 class="text-xl font-bold">Посещение близких</h4>
+        </div>
+        <p class="text-gray-600 mb-5">Мы всегда рады встречам с родными. Посещать постояльцев можно ежедневно с <strong class="text-[var(--primary-blue)]">09:00 до 20:00</strong>.</p>
+        <div class="space-y-3">
+          <div class="flex items-center gap-3 bg-white rounded-xl px-4 py-3 border border-blue-100">
+            <i class="ph ph-video-camera text-xl text-[var(--primary-blue)]"></i>
+            <span class="text-gray-600 text-sm">Видеосвязь с родственниками</span>
+          </div>
+          <div class="flex items-center gap-3 bg-white rounded-xl px-4 py-3 border border-blue-100">
+            <i class="ph ph-camera text-xl text-[var(--primary-blue)]"></i>
+            <span class="text-gray-600 text-sm">Фото- и видеоотчёты по желанию семьи</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Стоимость -->
+      <div class="care-card relative p-8 rounded-2xl overflow-hidden bg-gradient-to-br from-teal-50 to-green-50 border border-teal-100">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-teal-100 rounded-full -translate-y-1/2 translate-x-1/2 opacity-40"></div>
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-12 h-12 rounded-xl bg-teal-100 flex items-center justify-center">
+            <i class="ph ph-tag text-2xl text-teal-600"></i>
+          </div>
+          <h4 class="text-xl font-bold">Стоимость проживания</h4>
+        </div>
+        <div class="space-y-2 mb-5">
+          <div class="flex items-center gap-3 bg-white rounded-xl px-4 py-3 border border-teal-100">
+            <i class="ph ph-check-circle text-xl text-teal-500"></i>
+            <span class="text-gray-600 text-sm">Проживание</span>
+          </div>
+          <div class="flex items-center gap-3 bg-white rounded-xl px-4 py-3 border border-teal-100">
+            <i class="ph ph-check-circle text-xl text-teal-500"></i>
+            <span class="text-gray-600 text-sm">Четырёхразовое питание</span>
+          </div>
+          <div class="flex items-center gap-3 bg-white rounded-xl px-4 py-3 border border-teal-100">
+            <i class="ph ph-check-circle text-xl text-teal-500"></i>
+            <span class="text-gray-600 text-sm">Организация досуга</span>
+          </div>
+          <div class="flex items-center gap-3 bg-white rounded-xl px-4 py-3 border border-teal-100">
+            <i class="ph ph-check-circle text-xl text-teal-500"></i>
+            <span class="text-gray-600 text-sm">Гигиенический уход</span>
+          </div>
+          <div class="flex items-center gap-3 bg-white rounded-xl px-4 py-3 border border-teal-100">
+            <i class="ph ph-check-circle text-xl text-teal-500"></i>
+            <span class="text-gray-600 text-sm">Круглосуточное наблюдение</span>
+          </div>
+        </div>
+        <p class="text-gray-400 text-xs">Стоимость уточняется по телефону. Доп. услуги (лечение, массаж и др.) оплачиваются отдельно.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+    <!-- 13. Контакты -->
+<section id="contacts" class="py-16 bg-sec">
+    <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12">
+        <div>
+            <h3 class="text-3xl font-bold mb-6">Контакты</h3>
+            <p class="mb-4"><strong>Адрес:</strong> г. Алматы, мкр. Нур Алатау, ул. Турбулак, 1</p>
+            <p><strong>Телефон:</strong> +7 (707) 383-87-23, +7 (747) 670-80-25</p>
+        </div>
+        <div class="rounded-xl overflow-hidden h-64">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2906.5!2d77.0!3d43.3!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z0KLRg9GA0LHRg9C70LDQug!5e0!3m2!1sru!2skz!4v1"
+                width="100%"
+                height="100%"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </div>
+</section>
+
+    <!-- Footer -->
+    <footer class="bg-[var(--dark-blue)] text-white py-12 text-center">
+        <div class="container mx-auto px-6">
+            <h5 class="text-xl font-bold mb-4">Пансионат «Наш Дом»</h5>
+            <p class="max-w-xl mx-auto mb-6">Мы с заботой и уважением относимся к каждому человеку, создавая атмосферу домашнего тепла, спокойствия и безопасности.</p>
+            <p class="text-sm opacity-70">© 2026 Пансионат «Наш Дом»</p>
+        </div>
+    </footer>
+
+    <!-- Mobile Sticky Buttons -->
+    <div class="md:hidden fixed bottom-0 left-0 right-0 p-4 bg-white border-t flex gap-4 z-50">
+        <a href="tel:+77073838723" class="flex-1 bg-[var(--primary-blue)] text-white py-3 text-center rounded-lg font-bold">Позвонить</a>
+        <a href="https://wa.me/77073838723" class="flex-1 bg-[#25D366] text-white py-3 text-center rounded-lg font-bold">WhatsApp</a>
+    </div>
+
+    <script>
+
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    // Открытие/закрытие меню
+    menuToggle.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+    // Закрытие меню при клике на ссылку
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+        });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, index * 100); // Задержка для каждого элемента
+            }
+        });
+    });
+
+    document.querySelectorAll('.stagger-item').forEach((el) => observer.observe(el));
+
+
+  const featureCards = document.querySelectorAll('.feat-card');
+
+  const featureObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const cardIndex = [...featureCards].indexOf(entry.target);
+        entry.target.style.transitionDelay = (cardIndex * 60) + 'ms';
+        entry.target.classList.add('animate-in');
+        featureObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  featureCards.forEach(card => featureObserver.observe(card));
+
+
+
+
+
+    const sliderTrack = document.getElementById('sliderTrack');
+  const sliderPrev = document.getElementById('sliderPrev');
+  const sliderNext = document.getElementById('sliderNext');
+  const sliderDotsContainer = document.getElementById('sliderDots');
+
+  const slideCount = document.querySelectorAll('.slide').length;
+  let currentSlide = 0;
+
+  sliderDotsContainer.innerHTML = Array.from({ length: slideCount })
+    .map((_, i) => `<div class="dot ${i === 0 ? 'active' : ''}" data-index="${i}"></div>`)
+    .join('');
+
+  const dots = document.querySelectorAll('.dot');
+
+  function goToSlide(index) {
+    currentSlide = (index + slideCount) % slideCount;
+    sliderTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+    dots.forEach(d => d.classList.remove('active'));
+    dots[currentSlide].classList.add('active');
+  }
+
+  sliderPrev.addEventListener('click', () => goToSlide(currentSlide - 1));
+  sliderNext.addEventListener('click', () => goToSlide(currentSlide + 1));
+  dots.forEach(dot => dot.addEventListener('click', () => goToSlide(+dot.dataset.index)));
+
+  setInterval(() => goToSlide(currentSlide + 1), 4000);
+
+
+    const careCards = document.querySelectorAll('.care-card');
+
+  const careObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const careIndex = [...careCards].indexOf(entry.target);
+        entry.target.style.transitionDelay = (careIndex * 80) + 'ms';
+        entry.target.classList.add('animate-in');
+        careObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  careCards.forEach(card => careObserver.observe(card));
+</script>
+</body>
+</html>
